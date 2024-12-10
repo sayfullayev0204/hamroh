@@ -32,7 +32,9 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://teachapp-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = [
+    "https://hamroh-production.up.railway.app"
+]
 
 
 # Application definition
