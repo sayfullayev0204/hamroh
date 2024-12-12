@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Answer Question</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 20px;
+            background-color: #4CAF50;
+            color: white;
+            margin: 0;
+        }
+
+        form {
+            width: 50%;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+
+        input[type="text"], input[type="file"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .question-details {
+            width: 50%;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+
+        .question-details img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease; /* Smooth transition */
+        }
+
+        .question-details img:hover {
+            transform: scale(1.2); /* Image grows on hover */
+        }
+
+        .question-details h2 {
+            margin: 10px 0;
+            font-size: 24px;
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 600px) {
+            form {
+                width: 90%;
+            }
+
+            .question-details h2 {
+                font-size: 20px;
+            }
+
+            input[type="text"], input[type="file"], textarea {
+                font-size: 14px;
+            }
+
+            button {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Answer Question</h1>
+
+    <div class="question-details">
+        <h2>{{ question.title }}</h2>
+        {% if question.image %}
+            <img src="{{question.image.url}}" alt="Question Image" id="question-image">
+        {% else %}
+            <p>No image available</p>
+        {% endif %}
+    </div>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit Answer</button>
+    </form>
+
+    <script>
+        // Optional: You can add a click event if you want to display the image in a modal
+        const img = document.getElementById('question-image');
+        img.addEventListener('click', function () {
+            window.open(img.src, '_blank'); // Opens the image in a new tab
+        });
+    </script>
+</body>
+</html>

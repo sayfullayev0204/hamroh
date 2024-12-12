@@ -19,10 +19,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-import environ
-env = environ.Env()
-environ.Env.read_env()
-SECRET_KEY = env('SECRET_KEY')
+
+SECRET_KEY = 'kmr$2j0e4$c#$cs@wkf5rfjr_r&9$eg9fy3_d+s4%bw4zco&'
 # SECURITY WARNING: keep the secret key used in production secret!
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -75,7 +73,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR.joinpath("templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

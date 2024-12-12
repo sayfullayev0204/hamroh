@@ -58,3 +58,25 @@ class QuestionDetailAPIView(APIView):
             return Response(serializer.data)
         except Question.DoesNotExist:
             return Response({'error': 'Question not found'}, status=404)
+
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Question, Answer
+from .forms import AnswerForm  # Answer formasi kerak bo'ladi
+
+def questions_list(request):
+    questions = Question.objects.filter(status=False)  # Faqat status=False bo'lgan savollar
+    return render(request, 'index.html', {'questions': questions})
+
+def answer_question(request, question_id):
+    question = get_object_or_404(Question, id=question_id)
+    if request.method == 'POST':
+        form = AnswerForm(request.POST, request.FILES)
+        if form.is_valid():
+            answer = form.save(commit=False)
+            answer.question = question
+            answer.user_id = 1  # User har doim ID=1 bo'ladi
+            answer.save()
+            return redirect('questions_list')  # Savollar ro'yxatiga qaytish
+    else:
+        form = AnswerForm()
+    return render(request, 'form.html', {'form': form, 'question': question})
